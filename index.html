@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="libjson-rpc-cpp : C++ framework for json-rpc (json remote procedure call)" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>libjson-rpc-cpp</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/cinemast/libjson-rpc-cpp">View on GitHub</a>
+
+          <h1 id="project_title">libjson-rpc-cpp</h1>
+          <h2 id="project_tagline">C++ framework for json-rpc (json remote procedure call)</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/cinemast/libjson-rpc-cpp/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/cinemast/libjson-rpc-cpp/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>libjson-rpc-cpp</h1>
+
+<p>This C++ library provides a json-rpc (remote procedure call) framework for Windows, Linux and MacOS (or any other UNIX derivate).
+It is fully JSON-RPC 2.0 compatible (<a href="http://www.jsonrpc.org/specification">JSON-RPC 2.0</a>) and provides additional features, such as generic authentication mechanisms.</p>
+
+<p><img src="https://github.com/cinemast/libjson-rpc-cpp/blob/master/dev/artwork/logo.png?raw=true" alt="libjson-rpc-cpp logo"></p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Full JSON-RPC 2.0 Support (batch requests, parameter type and name checking, ...).</li>
+<li>Authentication support: to restrict certain methods to certain user/groups only.</li>
+<li>Easy to use.</li>
+<li>Method parameter names and checks can be easily configured through a simple json configuration file.</li>
+<li>Very verbose error reporting.</li>
+<li>Embedded HTTP server to provide simple interfaces for your json-rpc server application.</li>
+<li>Using <a href="http://www.cmake.org">cmake</a> cross platform build system.</li>
+<li>Tested under Windows7, MacOS X (10.7) and Linux (Ubuntu 12.10).</li>
+<li>Super liberal <a href="http://en.wikipedia.org/wiki/MIT_License">MIT-License</a>. </li>
+</ul><h2>Compile &amp; Run</h2>
+
+<p>see <a href="https://github.com/cinemast/libjson-rpc-cpp/wiki/Compile-&amp;-Run">here</a>.</p>
+
+<h2>Examples</h2>
+
+<p>see <a href="https://github.com/cinemast/libjson-rpc-cpp/wiki/Examples">here</a>.</p>
+
+<h2>Licsense</h2>
+
+<p>This framework is licensed under <a href="http://en.wikipedia.org/wiki/MIT_License">MIT</a>.</p>
+
+<pre><code>Copyright (C) 2011-2013 Peter Spiess-Knafl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of 
+this software and associated documentation files (the "Software"), to deal in the 
+Software without restriction, including without limitation the rights to 
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of 
+the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+OR OTHER DEALINGS IN THE SOFTWARE.
+</code></pre>
+
+<h2>Used Libraries</h2>
+
+<ul>
+<li>
+<a href="http://jsoncpp.sourceforge.net">jsoncpp</a> (licensed under MIT)
+jsoncpp is a very easy to use and powerful json library. 
+It is used for all the JSON parsing and generation inside this library.</li>
+<li>
+<a href="https://github.com/valenok/mongoose">mongoose</a> (licensed under MIT)
+mongoose is a http server that can be easily embedded into other applications. 
+It is used here for the HttpConnector to provide HTTP json-rpc Requests.</li>
+</ul><p>Thanks go to <strong>Baptiste Lepilleur</strong> and <strong>Sergey Lyubka</strong> for providing jsoncpp and mongoose.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">libjson-rpc-cpp maintained by <a href="https://github.com/cinemast">cinemast</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
