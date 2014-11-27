@@ -13,6 +13,7 @@ before_install:
 
 env:
  - HTTP_SERVER=YES HTTP_CLIENT=YES COMPILE_STUBGEN=YES
+ - secure: "XUumb56pD7hq0VSFKziaU0I62Rn+QKLIbSwm9BcwwdL2jQt6JCpUea96GyLsTfd08i52/4tpDMbu99OYVG4lkx/GzpIu1ZB21iDl/X9Lu5YDv8YXvb4fM2HzkOawhhmiiUkYmtma8zWOkn73ZmYtXG9H2v71uY4EYT5ZAEpnTh8="
 
 compiler:
   - gcc
@@ -36,10 +37,9 @@ addons:
 
     project:
       name: cinemast/libjson-rpc-cpp
-      version: 0.4
-      description: A JSON-RPC framework for C++
+      description: "Build submitted via Travis CI"
 
     notification_email: psk@autistici.org
-    build_command_prepend: cmake
-    build_command: make
+    build_command_prepend: "cmake; make clean"
+    build_command: "make"
     branch_pattern: feature/coverity_scan
