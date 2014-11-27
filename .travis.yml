@@ -30,3 +30,16 @@ script:
 after_success:
     - cd ..
     - coveralls -e src/test -e src/examples -e cmake -e /usr/include -e build/CMakeFiles -E '.*\.h' -E 'libmicrohttpd.*'
+
+addons:
+  coverity_scan:
+
+    project:
+      name: cinemast/libjson-rpc-cpp
+      version: 0.4
+      description: A JSON-RPC framework for C++
+
+    notification_email: psk@autistici.org
+    build_command_prepend: cmake
+    build_command: make
+    branch_pattern: feature/coverity_scan
