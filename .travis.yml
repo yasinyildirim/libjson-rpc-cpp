@@ -18,6 +18,16 @@ env:
 compiler:
   - gcc
 
+addons:
+  coverity_scan:
+    project:
+      name: cinemast/libjson-rpc-cpp
+      description: "Build submitted via Travis CI"
+    notification_email: psk@autistici.org
+    build_command_prepend: "mkdir -p build; cd build; cmake ..; make clean"
+    build_command: "make"
+    branch_pattern: "coverity_scan"
+
 script: 
     - mkdir -p build && cd build
     - cmake -DCMAKE_BUILD_TYPE=Debug -DHTTP_CLIENT=${HTTP_CLIENT} -DHTTP_SERVER=${HTTP_SERVER} -DCOMPILE_STUBGEN=${COMPILE_STUBGEN} .. 
@@ -32,14 +42,3 @@ after_success:
     - cd ..
     - coveralls -e src/test -e src/examples -e cmake -e /usr/include -e build/CMakeFiles -E '.*\.h' -E 'libmicrohttpd.*'
 
-addons:
-  coverity_scan:
-
-    project:
-      name: cinemast/libjson-rpc-cpp
-      description: "Build submitted via Travis CI"
-
-    notification_email: psk@autistici.org
-    build_command_prepend: "mkdir -p build; cd build; cmake ..; make clean"
-    build_command: "make"
-    branch_pattern: "feature/coverity_scan"
