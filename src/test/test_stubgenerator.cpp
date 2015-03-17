@@ -7,10 +7,8 @@
  * @license See attached LICENSE.txt
  ************************************************************************/
 
-#include <boost/test/unit_test.hpp>
-
 #ifdef STUBGEN_TESTING
-#define BOOST_TEST_MODULE stubgenerator
+#include <boost/test/unit_test.hpp>
 
 #include <jsonrpccpp/common/specificationparser.h>
 #include <stubgenerator/server/cppserverstubgenerator.h>
@@ -61,10 +59,11 @@ BOOST_AUTO_TEST_CASE(test_stubgen_cppserver)
     BOOST_CHECK_NE(result.find("namespace ns1"), string::npos);
     BOOST_CHECK_NE(result.find("namespace ns2"), string::npos);
     BOOST_CHECK_NE(result.find("class TestStubServer : public jsonrpc::AbstractServer<TestStubServer>"), string::npos);
-    BOOST_CHECK_NE(result.find("virtual std::string test.method(const std::string& name) = 0;"), string::npos);
-    BOOST_CHECK_NE(result.find("virtual void test.notification(const std::string& name) = 0;"), string::npos);
-    BOOST_CHECK_NE(result.find("virtual double test.method2(const Json::Value& object, const Json::Value& values) = 0;"), string::npos);
-    BOOST_CHECK_NE(result.find("virtual void test.notification2(const Json::Value& object, const Json::Value& values) = 0;"), string::npos);
+    BOOST_CHECK_NE(result.find("virtual std::string test_method(const std::string& name) = 0;"), string::npos);
+    BOOST_CHECK_NE(result.find("virtual void test_notification(const std::string& name) = 0;"), string::npos);
+    BOOST_CHECK_NE(result.find("virtual double test_method2(const Json::Value& object, const Json::Value& values) = 0;"), string::npos);
+    BOOST_CHECK_NE(result.find("virtual void test_notification2(const Json::Value& object, const Json::Value& values) = 0;"), string::npos);
+    BOOST_CHECK_NE(result.find("this->bindAndAddMethod(jsonrpc::Procedure(\"test.method\", jsonrpc::PARAMS_BY_NAME, jsonrpc::JSON_STRING, \"name\",jsonrpc::JSON_STRING, NULL), &ns1::ns2::TestStubServer::test_methodI);"), string::npos);
     BOOST_CHECK_NE(result.find("#endif //JSONRPC_CPP_STUB_NS1_NS2_TESTSTUBSERVER_H_"), string::npos);
 }
 
@@ -107,6 +106,17 @@ BOOST_AUTO_TEST_CASE(test_stubgen_factory_help)
     vector<StubGenerator*> stubgens;
     vector<Procedure> procedures;
     const char* argv[2] = {"jsonrpcstub","-h"};
+
+    BOOST_CHECK_EQUAL(StubGeneratorFactory::createStubGenerators(2, (char**)argv, procedures, stubgens), true);
+    BOOST_CHECK_EQUAL(stubgens.empty(), true);
+    BOOST_CHECK_EQUAL(procedures.empty(), true);
+}
+
+BOOST_AUTO_TEST_CASE(test_stubgen_factory_version)
+{
+    vector<StubGenerator*> stubgens;
+    vector<Procedure> procedures;
+    const char* argv[2] = {"jsonrpcstub","--version"};
 
     BOOST_CHECK_EQUAL(StubGeneratorFactory::createStubGenerators(2, (char**)argv, procedures, stubgens), true);
     BOOST_CHECK_EQUAL(stubgens.empty(), true);

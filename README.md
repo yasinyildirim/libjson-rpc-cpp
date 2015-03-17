@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cinemast/libjson-rpc-cpp.png?branch=master)](https://travis-ci.org/cinemast/libjson-rpc-cpp) [![Coverage Status](https://coveralls.io/repos/cinemast/libjson-rpc-cpp/badge.png?branch=develop)](https://coveralls.io/r/cinemast/libjson-rpc-cpp?branch=develop)
+[![Build Status](https://travis-ci.org/cinemast/libjson-rpc-cpp.png?branch=master)](https://travis-ci.org/cinemast/libjson-rpc-cpp) [![Coverage Status](https://coveralls.io/repos/cinemast/libjson-rpc-cpp/badge.png?branch=develop)](https://coveralls.io/r/cinemast/libjson-rpc-cpp?branch=develop) [![Coverity Status](https://scan.coverity.com/projects/3169/badge.svg?flat=1)](https://scan.coverity.com/projects/3169)
 
 libjson-rpc-cpp
 ===============
@@ -6,21 +6,19 @@ libjson-rpc-cpp
 This framework provides cross platform JSON-RPC (remote procedure call) support for C++.
 It is fully JSON-RPC [2.0 & 1.0 compatible](http://www.jsonrpc.org/specification).
 
-**Notice: This framework is currently in a beta phase. Bug reports as well as contributions are very welcome! Heavy API/ABI changes might occur regularly but you can always find stable versions in the [Releases section](https://github.com/cinemast/libjson-rpc-cpp/releases)**
-
 ![libjson-rpc-cpp logo](https://github.com/cinemast/libjson-rpc-cpp/blob/master/dev/artwork/logo.png?raw=true)
 
 **5 good reasons for using libjson-rpc-cpp in your next RPC project**
 - Full JSON-RPC 2.0 & 1.0 Client and Server Support.
 - jsonrpcstub - a tool that generates stub-classes for your JSON-RPC client AND server applications.
 - Ready to use HTTP server and client to provide simple interfaces for your JSON-RPC application.
-- Cross platform build support and [precompiled binaries for WIN32](https://spiessknafl.at/libjson-rpc-cpp/libjson-rpc-cpp-0.4.0-win32.exe).
+- Cross platform build support and [precompiled binaries for WIN32](http://spiessknafl.at/libjson-rpc-cpp).
 - Super liberal [MIT-License](http://en.wikipedia.org/wiki/MIT_License). 
 
 **Other good reasons to use libjson-rpc-cpp**
 - Easy to use [cmake](http://www.cmake.org) cross platform build system.
 - Clean and simple architecture, which makes it easy to extend.
-- Tested under MacOS X (10.9), Linux (Debian 8 64-bit), Windows 7 (MinGW32) and Raspbian Wheezy (armhf).
+- Tested under MacOS X (10.9), GNU/Linux (Debian 8 64-bit), Windows 7 (MinGW32) and Raspbian Wheezy (armhf).
 - Automated testing using `make test`.
 - Useful Examples provided. e.g. XBMC Remote using json-rpc client part and stub generator.
 - The stubgenerator currently supports C++ and JavaScript.
@@ -29,20 +27,18 @@ Overview
 =========
 ![libjson-rpc-cpp logo](https://github.com/cinemast/libjson-rpc-cpp/blob/develop/dev/artwork/overview.png?raw=true)
 
-Build the framework
-===================
+Install the framework
+=====================
 
-Installing the dependencies
----------------------------
-**Debian based systems**
+**Debian**
+
 ```sh
-sudo apt-get install libcurl4-openssl-dev libmicrohttpd-dev libjsoncpp-dev libargtable2-dev cmake
+sudo apt-get install libjsonrpccpp-dev libjsonrpccpp-tools
 ```
 
-**Arch Linux based systems**
+**Arch Linux**
 
-For Arch Linux there is a [PKGBUILD provided in the AUR](https://aur.archlinux.org/packages/libjson-rpc-cpp/). 
-This already takes care of dependencies and the framework itself.
+For Arch Linux there is a [PKGBUILD provided in the AUR](https://aur.archlinux.org/packages/libjson-rpc-cpp/).
 
 ```sh
 sudo aura -A libjson-rpc-cpp
@@ -50,25 +46,38 @@ sudo aura -A libjson-rpc-cpp
 
 **Mac OS X**
 
-You need [Brew](http://brew.sh) installed and type the following commands
+For OS X a [Brew](http://brew.sh) package is available:
 ```sh
-brew install argtable cmake jsoncpp libmicrohttpd
+brew install libjson-rpc-cpp
 ```
 
 **Windows**
 
-There is a ready to use compiled package for WIN32 [here](https://spiessknafl.at/libjson-rpc-cpp/libjson-rpc-cpp-0.4.0-win32.exe).
+There is a ready to use compiled package [here](http://spiessknafl.at/libjson-rpc-cpp).
+Just download execute the installer EXE.
 
-If you want to compile on your own, here is how:
+Build from source
+=================
+Install the dependencies
+------------------------
+- [libcurl](http://curl.haxx.se/)
+- [libmicrohttpd](http://www.gnu.org/software/libmicrohttpd/)
+- [libjsoncpp](https://github.com/open-source-parsers/jsoncpp)
+- [libargtable](http://argtable.sourceforge.net/)
+- [cmake](http://www.cmake.org/)
 
-- You will need [Git](http://git-scm.com/downloads) and [CMake](http://www.cmake.org/cmake/resources/software.html).
+**UNIX**
+
+For Debian and Arch GNU/Linux based systems, all dependencies are available via the package manager.
+For OS X all dependencies are available in [Brew](http://brew.sh)
+
+**Windows**
+
 - Download the precompiled dependencies form [here](https://spiessknafl.at/libjson-rpc-cpp/libjson-rpc-cpp_win32-deps.zip).
 - Extract it into the cloned repository, so that there is a `win32-deps` folder in the root project directory.
 
-Build and install this framework
---------------------------------
-
-Open a terminal and copy the following commands:
+Build
+-----
 
 ```sh
 git clone git://github.com/cinemast/libjson-rpc-cpp.git
@@ -95,8 +104,8 @@ Default configuration should be fine for most systems, but here are available co
 - `-DHTTP_SERVER=NO` disable the embedded mongoose webserver.
 - `-DHTTP_CLIENT=NO` disable the curl client.
 
-Simple Example
-==============
+Using the framework
+===================
 This example will show the most simple way to create a rpc server and client. If you only need the server, ignore step 4. If you only need the client, ignore step 3. You can find all resources of this sample in the `src/examples` directory of this repository.
 
 ### Step 1: Writing the specification file ###
@@ -133,7 +142,7 @@ This generates a serverstub and a clientstub class.
 Extend the abstract server stub and implement all pure virtual (abstract) methods defined in `spec.json`.
 
 ```cpp
-#include "abstractsubserver.h"
+#include "abstractstubserver.h"
 #include <jsonrpccpp/server/connectors/httpserver.h>
 
 using namespace jsonrpc;
@@ -196,7 +205,7 @@ int main()
     StubClient c(httpclient);
     try
     {
-        cout << c.sayHello("Peter Knafl") << endl;
+        cout << c.sayHello("Peter") << endl;
         c.notifyServer();
     }
     catch (JsonRpcException e)
@@ -218,39 +227,80 @@ References
 - [LaseShark 3D Printer](https://github.com/macpod/lasershark_3dp): used to control the firmware of the 3D printer.
 - [cpp-ethereum](https://github.com/ethereum/cpp-ethereum): a distributed computing framework.
 - [mage-sdk-cpp](https://github.com/mage/mage-sdk-cpp): a game engine.
-- [bitcodin](http://www.bitmovin.net): a scaleable cloud based video transcoding platform.
+- [bitcodin](http://www.bitmovin.net): a scalable cloud based video transcoding platform.
 - [wgslib](http://wgslib.com/): A web geostatistics library.
 - [bitcoin-api-cpp](https://github.com/minium/bitcoin-api-cpp): a C++ interface to bitcoin.
+- [NIT DASH Content Server](http://www.nit.eu/offer/research-projects-products/334-http2dash): Dynamic Adaptive Streaming over HTTP server.
 
 If you use this library and find it useful, I would be very pleased if you let me know about it.
 
 Developer Information
-======================
+=====================
+Contributions
+-------------
+Contributions of any kind are always very welcome. 
+Here are some suggestions:
+- Bugreports
+- Bugfixes
+- Extending documentation (especially doxygen)
+- Suggestion of new features
+- New features:
+  - Adding new connectors.
+  - Adding new languages to the stubgenerator.
+
+**Guidelines / Conventions**
+
+We do not want to prevent you from contributing by having too strict guidelines.
+If you have ideas for improvement, just do it your way, rather than doing it not at all.
+
+Anyway here is a list of how we would prefer your contributions:
+- Issues:
+  - Use the issue tracker on github to report bugs or improvements.
+  - Please avoid sending me mails directly, as this is not visible to others.
+  - Please close issues on your own if you think a problem has been dealt with.
+- Code contributions:
+  - Please raise a pull-request against the develop branch.
+  - If you add features, please keep the test-coverage at 100% and document them (doxygen, manpage, etc.).
+  - If you fix a bug, please refer the issue in the [commit message](https://help.github.com/articles/closing-issues-via-commit-messages/).
+  - Please make sure that the travis-ci build passes (you will get notified if you raise a pull-request).
+  - Add yourself to the AUTHORS.md.
+  - Use 4 spaces instead of tabs.
+
+Mailing list
+------------
+[libjsonrpccpp-devel@lists.sourceforge.net](https://lists.sourceforge.net/lists/listinfo/libjsonrpccpp-devel)
 
 Roadmap for next release
 ------------------------
 - Generate client stubs for other languages.
+- Extend doxygen documentation.
 
 Changelogs
 ----------
 Changelogs can be found [here](https://github.com/cinemast/libjson-rpc-cpp/blob/master/CHANGELOG.md).
 
-Licsense
---------
+API compatibility
+-----------------
+We do our best to keep the API/ABI stable, to prevent problems when updating this framework.
+A compatiblity report can be found [here](http://upstream.rosalinux.ru/versions/libjson-rpc-cpp.html).
+
+License
+-------
 This framework is licensed under [MIT](http://en.wikipedia.org/wiki/MIT_License). 
 All of this libraries dependencies are licensed under MIT compatible licenses.
 
-Dependencies
-------------
-- [jsoncpp](http://jsoncpp.sourceforge.net) (licensed under MIT)
-jsoncpp is a very easy to use and powerful json library. 
-It is used for all the JSON parsing and generation inside this library.
-- [libmicrohttpd](http://www.gnu.org/software/libmicrohttpd/) (licensed under LGPL)
-small gnu http server implementation.
-- [curl](http://curl.haxx.se)
-lib curl is used for the HttpClient connections.
-- [argtable2](http://argtable.sourceforge.net/) (licensed under LGPL)
-libargtable2 is used for handling commandline parameters of the jsonrpcstub tool.
+Documentation
+-------------
+
+The documentation for this library can be generated using doxygen.
+If it is installed on your system, you can simply type:
+
+```sh
+cd build
+make doc
+```
+
+This generates the Latex and HTML documentation into `build/doc`
 
 Run the tests
 -------------
@@ -272,4 +322,3 @@ cmake .. && make test
 ```
 
 Testcoverage can be retrieved by invoking the [dev/testcoverage.sh script](https://github.com/cinemast/libjson-rpc-cpp/blob/master/dev/testcoverage.sh).
-

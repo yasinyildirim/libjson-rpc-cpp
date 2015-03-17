@@ -22,6 +22,12 @@ Marc Trudel <mtrudel@wizcorp.jp>
 Yuriy Syrovetskiy <cblp@cblp.su>
 + added user supplied error blocks
 
+Veselin Rachev <veselin.raychev@gmail.com>
++ added HTTP OPTIONS request support
+
+Marek Kotewicz <marek.kotewicz@gmail.com>
++ msvc support
+
 Bugfixes (chronological order)
 ==============================
 
@@ -45,3 +51,7 @@ Pascal Heijnsdijk <pascal@heijnsdijk.nl>
 
 Kasper Laudrup <laudrup@stacktrace.dk>
 + Code reviews
+
+Erik Lundin
++ bugfix in cpp-server stubgen
++ bugfix for gcc 4.7 compatibility 

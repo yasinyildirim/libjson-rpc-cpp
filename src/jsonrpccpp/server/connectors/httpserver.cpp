@@ -57,7 +57,7 @@ bool HttpServer::StartListening()
                 SpecificationParser::GetFileContent(this->path_sslcert, this->sslcert);
                 SpecificationParser::GetFileContent(this->path_sslkey, this->sslkey);
 
-                this->daemon = MHD_start_daemon(MHD_USE_SSL | MHD_USE_SELECT_INTERNALLY, this->port, NULL, NULL, HttpServer::callback, this, MHD_OPTION_HTTPS_MEM_KEY, this->sslkey.c_str(), MHD_OPTION_HTTPS_MEM_CERT, this->sslcert.c_str(), MHD_OPTION_END, this->threads, MHD_OPTION_END);
+                this->daemon = MHD_start_daemon(MHD_USE_SSL | MHD_USE_SELECT_INTERNALLY, this->port, NULL, NULL, HttpServer::callback, this, MHD_OPTION_HTTPS_MEM_KEY, this->sslkey.c_str(), MHD_OPTION_HTTPS_MEM_CERT, this->sslcert.c_str(), MHD_OPTION_THREAD_POOL_SIZE, this->threads, MHD_OPTION_END);
             }
             catch (JsonRpcException& ex)
             {
@@ -92,6 +92,21 @@ bool HttpServer::SendResponse(const string& response, void* addInfo)
 
     MHD_add_response_header(result, "Content-Type", "application/json");
     MHD_add_response_header(result, "Access-Control-Allow-Origin", "*");
+
+    int ret = MHD_queue_response(client_connection->connection, client_connection->code, result);
+    MHD_destroy_response(result);
+    return ret == MHD_YES;
+}
+
+bool HttpServer::SendOptionsResponse(void* addInfo)
+{
+    struct mhd_coninfo* client_connection = static_cast<struct mhd_coninfo*>(addInfo);
+    struct MHD_Response *result = MHD_create_response_from_data(0, NULL, 0, 1);
+
+    MHD_add_response_header(result, "Allow", "POST, OPTIONS");
+    MHD_add_response_header(result, "Access-Control-Allow-Origin", "*");
+    MHD_add_response_header(result, "Access-Control-Allow-Headers", "origin, content-type, accept");
+    MHD_add_response_header(result, "DAV", "1");
 
     int ret = MHD_queue_response(client_connection->connection, client_connection->code, result);
     MHD_destroy_response(result);
@@ -142,6 +157,10 @@ int HttpServer::callback(void *cls, MHD_Connection *connection, const char *url,
             }
         }
     }
+	else if (string("OPTIONS") == method) {
+        client_connection->code = MHD_HTTP_OK;
+        client_connection->server->SendOptionsResponse(client_connection);
+	}
     else
     {
         client_connection->code = MHD_HTTP_METHOD_NOT_ALLOWED;

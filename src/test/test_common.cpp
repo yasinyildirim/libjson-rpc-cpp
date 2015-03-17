@@ -13,9 +13,6 @@
 #include <jsonrpccpp/common/specificationparser.h>
 #include <jsonrpccpp/common/specificationwriter.h>
 
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE
-
 using namespace jsonrpc;
 using namespace std;
 
@@ -89,6 +86,15 @@ BOOST_AUTO_TEST_CASE(test_exception)
     BOOST_CHECK_EQUAL(ex3.what(), "addInfo");
     BOOST_CHECK_EQUAL(ex3.GetMessage(), "addInfo");
     BOOST_CHECK_EQUAL(ex3.GetCode(), 0);
+
+    Json::Value data;
+    data.append(13);
+    data.append(41);
+    JsonRpcException ex4(Errors::ERROR_RPC_INTERNAL_ERROR, "internal error", data);
+    BOOST_CHECK_EQUAL(ex4.GetData().size(), 2);
+    BOOST_CHECK_EQUAL(ex4.GetData()[0].asInt(), 13);
+    BOOST_CHECK_EQUAL(ex4.GetData()[1].asInt(), 41);
+
 }
 
 bool check_exception1(JsonRpcException const & ex)
