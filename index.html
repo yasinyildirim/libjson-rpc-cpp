@@ -6,7 +6,7 @@
     <title>libjson-rpc-cpp by cinemast</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
     <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
@@ -89,7 +89,7 @@ CMake must be Version 2.6 or later.</p>
 
 <div class="highlight highlight-sh"><pre>git clone git://github.com/cinemast/libjson-rpc-cpp.git
 mkdir -p libjson-rpc-cpp/build
-<span class="pl-s3">cd</span> libjson-rpc-cpp/build
+<span class="pl-c1">cd</span> libjson-rpc-cpp/build
 cmake .. <span class="pl-k">&amp;&amp;</span> make
 sudo make install   <span class="pl-c">#Not required, but makes it easier to use</span>
 sudo ldconfig       <span class="pl-c">#only required for linux</span></pre></div>
@@ -129,15 +129,15 @@ sudo ldconfig       <span class="pl-c">#only required for linux</span></pre></di
 
 <div class="highlight highlight-json"><pre>[
     {
-        <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>sayHello<span class="pl-pds">"</span></span>,
-        <span class="pl-s1"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: { 
-            <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>Peter<span class="pl-pds">"</span></span>
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>sayHello<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: { 
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Peter<span class="pl-pds">"</span></span>
         },
-        <span class="pl-s1"><span class="pl-pds">"</span>returns<span class="pl-pds">"</span></span> : <span class="pl-s1"><span class="pl-pds">"</span>Hello Peter<span class="pl-pds">"</span></span>
+        <span class="pl-s"><span class="pl-pds">"</span>returns<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>Hello Peter<span class="pl-pds">"</span></span>
     },
     {
-        <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> : <span class="pl-s1"><span class="pl-pds">"</span>notifyServer<span class="pl-pds">"</span></span>,
-        <span class="pl-s1"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span>
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>notifyServer<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>params<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span>
     }
 ]</pre></div>
 
@@ -157,41 +157,41 @@ sudo ldconfig       <span class="pl-c">#only required for linux</span></pre></di
 
 <p>Extend the abstract server stub and implement all pure virtual (abstract) methods defined in <code>spec.json</code>.</p>
 
-<div class="highlight highlight-cpp"><pre>#<span class="pl-k">include</span> <span class="pl-s1"><span class="pl-pds">"</span>abstractsubserver.h<span class="pl-pds">"</span></span>
-#<span class="pl-k">include</span> <span class="pl-s1"><span class="pl-pds">&lt;</span>jsonrpccpp/server/connectors/httpserver.h<span class="pl-pds">&gt;</span></span>
+<div class="highlight highlight-cpp"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>abstractsubserver.h<span class="pl-pds">"</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>jsonrpccpp/server/connectors/httpserver.h<span class="pl-pds">&gt;</span></span>
 
-<span class="pl-k">using</span> <span class="pl-st">namespace</span> <span class="pl-en">jsonrpc</span><span class="pl-k">;</span>
-<span class="pl-k">using</span> <span class="pl-st">namespace</span> <span class="pl-en">std</span><span class="pl-k">;</span>
+<span class="pl-k">using</span> <span class="pl-k">namespace</span> <span class="pl-en">jsonrpc</span><span class="pl-k">;</span>
+<span class="pl-k">using</span> <span class="pl-k">namespace</span> <span class="pl-en">std</span><span class="pl-k">;</span>
 
-<span class="pl-st">class</span> <span class="pl-en">MyStubServer</span> : <span class="pl-st">public</span> <span class="pl-en">AbstractStubServer</span>
+<span class="pl-k">class</span> <span class="pl-en">MyStubServer</span> : <span class="pl-k">public</span> <span class="pl-en">AbstractStubServer</span>
 {
-    <span class="pl-s">public:</span>
+    <span class="pl-k">public:</span>
         <span class="pl-en">MyStubServer</span>(AbstractServerConnector &amp;connector);
 
-        <span class="pl-s">virtual</span> <span class="pl-st">void</span> <span class="pl-en">notifyServer</span>();
-        <span class="pl-s">virtual</span> std::string <span class="pl-en">sayHello</span>(<span class="pl-s">const</span> std::string&amp; name);
+        <span class="pl-k">virtual</span> <span class="pl-k">void</span> <span class="pl-en">notifyServer</span>();
+        <span class="pl-k">virtual</span> std::string <span class="pl-en">sayHello</span>(<span class="pl-k">const</span> std::string&amp; name);
 };
 
 <span class="pl-en">MyStubServer::MyStubServer</span>(AbstractServerConnector &amp;connector) :
     AbstractStubServer(connector)
 {
 }
-<span class="pl-st">void</span> <span class="pl-en">MyStubServer::notifyServer</span>()
+<span class="pl-k">void</span> <span class="pl-en">MyStubServer::notifyServer</span>()
 {
-    cout &lt;&lt; <span class="pl-s1"><span class="pl-pds">"</span>Server got notified<span class="pl-pds">"</span></span> &lt;&lt; endl;
+    cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>Server got notified<span class="pl-pds">"</span></span> &lt;&lt; endl;
 }
-string <span class="pl-en">MyStubServer::sayHello</span>(<span class="pl-s">const</span> string &amp;name)
+string <span class="pl-en">MyStubServer::sayHello</span>(<span class="pl-k">const</span> string &amp;name)
 {
-    <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-pds">"</span>Hello <span class="pl-pds">"</span></span> + name;
+    <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>Hello <span class="pl-pds">"</span></span> + name;
 }
 
-<span class="pl-st">int</span> <span class="pl-en">main</span>()
+<span class="pl-k">int</span> <span class="pl-en">main</span>()
 {
-    HttpServer <span class="pl-vo">httpserver</span>(<span class="pl-c1">8383</span>);
-    MyStubServer <span class="pl-vo">s</span>(httpserver);
-    s.<span class="pl-s3">StartListening</span>();
-    <span class="pl-s3">getchar</span>();
-    s.<span class="pl-s3">StopListening</span>();
+    HttpServer <span class="pl-smi">httpserver</span>(<span class="pl-c1">8383</span>);
+    MyStubServer <span class="pl-smi">s</span>(httpserver);
+    s.<span class="pl-c1">StartListening</span>();
+    <span class="pl-c1">getchar</span>();
+    s.<span class="pl-c1">StopListening</span>();
     <span class="pl-k">return</span> <span class="pl-c1">0</span>;
 }</pre></div>
 
@@ -204,26 +204,26 @@ string <span class="pl-en">MyStubServer::sayHello</span>(<span class="pl-s">cons
 <h3>
 <a id="step-4-create-the-client-application" class="anchor" href="#step-4-create-the-client-application" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 4: Create the client application</h3>
 
-<div class="highlight highlight-cpp"><pre>#<span class="pl-k">include</span> <span class="pl-s1"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
+<div class="highlight highlight-cpp"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>iostream<span class="pl-pds">&gt;</span></span>
 
-#<span class="pl-k">include</span> <span class="pl-s1"><span class="pl-pds">"</span>stubclient.h<span class="pl-pds">"</span></span>
-#<span class="pl-k">include</span> <span class="pl-s1"><span class="pl-pds">&lt;</span>jsonrpccpp/client/connectors/httpclient.h<span class="pl-pds">&gt;</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>stubclient.h<span class="pl-pds">"</span></span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">&lt;</span>jsonrpccpp/client/connectors/httpclient.h<span class="pl-pds">&gt;</span></span>
 
-<span class="pl-k">using</span> <span class="pl-st">namespace</span> <span class="pl-en">jsonrpc</span><span class="pl-k">;</span>
-<span class="pl-k">using</span> <span class="pl-st">namespace</span> <span class="pl-en">std</span><span class="pl-k">;</span>
+<span class="pl-k">using</span> <span class="pl-k">namespace</span> <span class="pl-en">jsonrpc</span><span class="pl-k">;</span>
+<span class="pl-k">using</span> <span class="pl-k">namespace</span> <span class="pl-en">std</span><span class="pl-k">;</span>
 
-<span class="pl-st">int</span> <span class="pl-en">main</span>()
+<span class="pl-k">int</span> <span class="pl-en">main</span>()
 {
-    HttpClient <span class="pl-vo">httpclient</span>(<span class="pl-s1"><span class="pl-pds">"</span>http://localhost:8383<span class="pl-pds">"</span></span>);
-    StubClient <span class="pl-vo">c</span>(httpclient);
+    HttpClient <span class="pl-smi">httpclient</span>(<span class="pl-s"><span class="pl-pds">"</span>http://localhost:8383<span class="pl-pds">"</span></span>);
+    StubClient <span class="pl-smi">c</span>(httpclient);
     <span class="pl-k">try</span>
     {
-        cout &lt;&lt; c.<span class="pl-s3">sayHello</span>(<span class="pl-s1"><span class="pl-pds">"</span>Peter Knafl<span class="pl-pds">"</span></span>) &lt;&lt; endl;
-        c.<span class="pl-s3">notifyServer</span>();
+        cout &lt;&lt; c.<span class="pl-c1">sayHello</span>(<span class="pl-s"><span class="pl-pds">"</span>Peter Knafl<span class="pl-pds">"</span></span>) &lt;&lt; endl;
+        c.<span class="pl-c1">notifyServer</span>();
     }
     <span class="pl-k">catch</span> (JsonRpcException e)
     {
-        cerr &lt;&lt; e.<span class="pl-s3">what</span>() &lt;&lt; endl;
+        cerr &lt;&lt; e.<span class="pl-c1">what</span>() &lt;&lt; endl;
     }
 }</pre></div>
 
@@ -297,7 +297,7 @@ libargtable2 is used for handling commandline parameters of the jsonrpcstub tool
 </ul>
       </section>
       <footer>
-        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
