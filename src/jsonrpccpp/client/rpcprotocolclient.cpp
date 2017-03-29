@@ -74,9 +74,13 @@ void RpcProtocolClient::BuildRequest(int id, const std::string &method, const Js
 {
     if (this->version == JSONRPC_CLIENT_V2)
         result[KEY_PROTOCOL_VERSION] = "2.0";
+    else if(this->version == JSONRPC_CLIENT_V1)
+        result["version"] = "1.0";
     result[KEY_PROCEDURE_NAME] = method;
     if (parameter != Json::nullValue)
         result[KEY_PARAMETER] = parameter;
+    else
+        result[KEY_PARAMETER] = Json::Value(Json::arrayValue);
     if (!isNotification)
         result[KEY_ID] = id;
     else if (this->version == JSONRPC_CLIENT_V1)
@@ -109,7 +113,7 @@ bool RpcProtocolClient::ValidateResponse(const Json::Value& response)
 
     if (this->version == JSONRPC_CLIENT_V1)
     {
-        if (!response.isMember(KEY_RESULT) || !response.isMember(KEY_ERROR))
+        if (!response.isMember(KEY_RESULT) ) // edited for sony-camera || !response.isMember(KEY_ERROR))
             return false;
         if(!response[KEY_RESULT].isNull() && !response[KEY_ERROR].isNull())
             return false;

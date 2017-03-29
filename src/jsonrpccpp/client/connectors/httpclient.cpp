@@ -82,6 +82,7 @@ void HttpClient::SendRPCMessage(const std::string& message, std::string& result)
     }
 
     headers = curl_slist_append(headers, "Content-Type: application/json");
+    headers = curl_slist_append(headers, "Accept: application/json");
     headers = curl_slist_append(headers, "charsets: utf-8");
 
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, message.c_str());
