@@ -1,0 +1,39 @@
+[
+
+{
+    "name": "startLiveview",
+    "params": [],
+    "returns": ["http://mjpeg_stream"],
+    "id": 1,
+    "version": "1.0"
+
+},
+
+{
+"name": "stopLiveview",
+"params": [],
+"id": 1,
+"version": "1.0"
+
+},
+
+{
+"name": "getAvailableApiList",
+"params": [],
+"returns": [
+    ["string", "string2"]
+    ],
+ "id": 1,
+ "version": "1.0"
+
+},
+
+{
+"method": "setShootMode",
+"params": ["movie"],
+"id": 1,
+"version": "1.0"
+}
+
+]
+
